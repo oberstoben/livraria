@@ -44,7 +44,7 @@ public class EmprestimoController {
 	public ModelAndView inserirExemplar(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("alugarExemplar");
 		
-		mv.addObject(exemplarDao.getOne(id));
+		mv.addObject(exemplarDao.getReferenceById(id));
 		
 		return mv;
 	}
@@ -56,7 +56,7 @@ public class EmprestimoController {
 	{
 		Cliente cliente2 = new Cliente();
 		cliente2 = clienteDao.findByNome(cliente);
-		Emprestimo emprestimo = new Emprestimo(cliente2, exemplarDao.getOne(idexemplar), dataDeEmprestimo, dataDeRetorno);
+		Emprestimo emprestimo = new Emprestimo(cliente2, exemplarDao.getReferenceById(idexemplar), dataDeEmprestimo, dataDeRetorno);
 		
 		emprestimoDao.save(emprestimo);
 		

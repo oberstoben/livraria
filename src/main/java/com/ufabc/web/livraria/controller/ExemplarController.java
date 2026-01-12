@@ -37,7 +37,7 @@ public class ExemplarController {
 	//pagina para listar exemplares
 	public ModelAndView exemplarPorId(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("exemplares");
-		mv.addObject("exemplares", exemplarDao.findByLivro(livroDao.getOne(id)));
+		mv.addObject("exemplares", exemplarDao.findByLivro(livroDao.getReferenceById(id)));
 		System.out.println(exemplarDao.findById(id).toString());
 		mv.addObject("disponivel", exemplarDao.countExemplarDisponivel(id));
 		return mv;
@@ -58,7 +58,7 @@ public class ExemplarController {
 	{
 		ModelAndView mv = new ModelAndView("editarExemplar");
 		Exemplar exemplar = new Exemplar();
-		exemplar  = exemplarDao.getOne(id);
+		exemplar  = exemplarDao.getReferenceById(id);
 		
 		mv.addObject("exemplar", exemplar);
 			
@@ -68,7 +68,7 @@ public class ExemplarController {
 	// remover exemplar
 	@RequestMapping(value = { "/removerExemplar/{id}" })
 	public RedirectView removerExemplar(@PathVariable Long id) {
-		Exemplar exemplar = exemplarDao.getOne(id);
+		Exemplar exemplar = exemplarDao.getReferenceById(id);
 		exemplarDao.delete(exemplar);
 		return new RedirectView("/exemplares");
 	}
@@ -94,7 +94,7 @@ public class ExemplarController {
 	public RedirectView salvarEdicaoExemplar(@RequestParam String idexemplar, @RequestParam(value = "disponivel", required = false) String disponivel)
 	{		
 		Exemplar exemplar= new Exemplar();
-		exemplar = exemplarDao.getOne(Long.parseLong((idexemplar)));
+		exemplar = exemplarDao.getReferenceById(Long.parseLong((idexemplar)));
 		exemplar.setDisponivel(disponivel == null ? false: true);
 		exemplarDao.save(exemplar);		
 		return new RedirectView("/exemplares");
