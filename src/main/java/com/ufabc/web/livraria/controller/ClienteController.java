@@ -41,7 +41,7 @@ public class ClienteController {
 	// redirecionar para pagina de editar cliente
 	@RequestMapping(value = { "/editarCliente/{id}" })
 	public ModelAndView editarCliente(@PathVariable Long id) {
-		Cliente cliente = clienteDao.getOne(id);
+		Cliente cliente = clienteDao.getReferenceById(id);
 
 		ModelAndView mv = new ModelAndView("editarCliente");
 		mv.addObject("cliente", cliente);
@@ -51,7 +51,7 @@ public class ClienteController {
 	// remover autor
 	@RequestMapping(value = { "/removerCliente/{id}" })
 	public RedirectView removerCliente(@PathVariable Long id) {
-		Cliente cliente = clienteDao.getOne(id);
+		Cliente cliente = clienteDao.getReferenceById(id);
 		clienteDao.delete(cliente);
 		return new RedirectView("/clientes");
 	}
@@ -80,7 +80,7 @@ public class ClienteController {
 			@RequestParam String idade, @RequestParam String endereco, @RequestParam String email) {
 		Cliente cliente = new Cliente();
 
-		cliente = clienteDao.getOne(Long.parseLong(id));
+		cliente = clienteDao.getReferenceById(Long.parseLong(id));
 
 		cliente.setNome(nome);
 		cliente.setCpf(cpf);

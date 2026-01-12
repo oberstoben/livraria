@@ -52,7 +52,7 @@ public class AutorController {
 	//redirecionar para p�gina de editar autor
 	@RequestMapping(value = { "/editarAutor/{id}" })
 	public ModelAndView editarAutor(@PathVariable Long id) {
-		Autor autor = autorDao.getOne(id);
+		Autor autor = autorDao.getReferenceById(id);
 		
 		ModelAndView mv = new ModelAndView("editarAutor");			
 		mv.addObject("autor",autor);
@@ -62,7 +62,7 @@ public class AutorController {
 	// remover autor	
 	@RequestMapping(value = { "/removerAutor/{id}" })
 	public RedirectView removerAutor(@PathVariable Long id) {
-		Autor autor = autorDao.getOne(id);		
+		Autor autor = autorDao.getReferenceById(id);		
 		autorDao.delete(autor);			
 		return new RedirectView("/autores");
 	}

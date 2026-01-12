@@ -39,7 +39,7 @@ public class EditoraController {
 	// redirecionar para pagina de editar editora
 	@RequestMapping(value = { "/editarEditora/{id}" })
 	public ModelAndView editarEditora(@PathVariable Long id) {
-		Editora editora = editoraDao.getOne(id);
+		Editora editora = editoraDao.getReferenceById(id);
 
 		ModelAndView mv = new ModelAndView("editarEditora");
 		mv.addObject("editora", editora);
@@ -49,7 +49,7 @@ public class EditoraController {
 	// remover editora
 	@RequestMapping(value = { "/removerEditora/{id}" })
 	public RedirectView removerEditora(@PathVariable Long id) {
-		Editora editora = editoraDao.getOne(id);
+		Editora editora = editoraDao.getReferenceById(id);
 		editoraDao.delete(editora);
 		return new RedirectView("/editoras");
 	}

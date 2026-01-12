@@ -66,7 +66,7 @@ public class LivroController {
 	public ModelAndView editarLivro(@PathVariable Long id) {		
 		ModelAndView mv = new ModelAndView("editarLivro");
 		Livro livro = new Livro();
-		livro  = livroDao.getOne(id);
+		livro  = livroDao.getReferenceById(id);
 		mv.addObject("livro", livro);
 		mv.addObject("autores",autorDao.findAll());
 		
@@ -77,7 +77,7 @@ public class LivroController {
 	// remover livro
 	@RequestMapping(value = { "/removerLivro/{id}" })
 	public RedirectView removerLivro(@PathVariable Long id) {
-		Livro livro = livroDao.getOne(id);
+		Livro livro = livroDao.getReferenceById(id);
 		livroDao.delete(livro);
 		return new RedirectView("/livros");
 	}
